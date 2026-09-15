@@ -11,8 +11,8 @@ export class Map {
   @Column()
   region: string; // 예: 세르니움
 
-  @Column()
-  min_level: number; // 입장 최소 레벨
+  @Column({ type: 'int', default: 0 })
+  min_level: number; // 입장/요구 레벨 (예: 260)
 
   @Column({ nullable: true })
   image_url: string; // CDN에 올라간 맵 이미지 경로
