@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { MapsModule } from './maps/maps.module';
 import { SkillsModule } from './skills/skills.module';
 import { PostsModule } from './posts/posts.module';
+import { LikesModule } from './likes/likes.module';
+import { BookmarksModule } from './bookmarks/bookmarks.module';
 
 @Module({
   imports: [
@@ -35,6 +37,10 @@ import { PostsModule } from './posts/posts.module';
     SkillsModule,
     
     PostsModule,
+    
+    LikesModule,
+    
+    BookmarksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
