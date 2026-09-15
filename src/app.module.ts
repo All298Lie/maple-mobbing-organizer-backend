@@ -3,6 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MapsModule } from './maps/maps.module';
+import { SkillsModule } from './skills/skills.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -26,6 +29,12 @@ import { AppService } from './app.service';
         synchronize: true, // 개발용: 엔티티 수정 시 DB 스키마 자동 업데이트 (운영에서는 false 권장)
       }),
     }),
+    
+    MapsModule,
+    
+    SkillsModule,
+    
+    PostsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
