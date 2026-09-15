@@ -1,26 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMapDto } from './dto/create-map.dto';
-import { UpdateMapDto } from './dto/update-map.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Map } from '../entities/map.entity';
 
 @Injectable()
 export class MapsService {
-  create(createMapDto: CreateMapDto) {
-    return 'This action adds a new map';
-  }
+  constructor(
+    @InjectRepository(Map)
+    private mapsRepository: Repository<Map>, // DB 조작 도구(Repository) 주입
+  ) {}
 
-  findAll() {
-    return `This action returns all maps`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} map`;
-  }
-
-  update(id: number, updateMapDto: UpdateMapDto) {
-    return `This action updates a #${id} map`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} map`;
+  // 사냥터 전체 목록 가져오기
+  async findAll() {
+    return await this.mapsRepository.find();
   }
 }

@@ -1,26 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Post } from '../entities/post.entity';
 
 @Injectable()
 export class PostsService {
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
-  }
+  constructor(
+    @InjectRepository(Post)
+    private postsRepository: Repository<Post>,
+  ) {}
 
-  findAll() {
-    return `This action returns all posts`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
-  }
-
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  // 승인된 사냥터 공략글 목록 가져오기 (연관 데이터 포함)
+  async findAll() {
+    return await this.postsRepository.find({
+      where: { status: 'APPROVED' },
+      // 배열 형태에서 객체 형태로 변경! (true로 설정하면 해당 데이터를 가져옵니다)
+      relations: {
+        map: true,
+        user: true,
+        tags: true,
+      },
+      order: { created_at: 'DESC' },
+    });
   }
 }
